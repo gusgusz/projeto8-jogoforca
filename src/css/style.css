@@ -1,0 +1,63 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+.div {
+    display: flex;
+    justify-content: center;
+    
+}
+
+img {
+    width: 300px;
+    height: 300px;
+    margin-right: 80px;
+}
+
+.choose {
+    color: white;
+    background-color: green;
+    width: 90px;
+    height: 45px;
+    border-radius: 10%;
+    position: absolute;
+    top: 21px;
+    right: 400px;
+    margin-left: 60px;
+    cursor: pointer;
+    
+}
+
+.alphabet {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 680px;
+    margin-top: 80px;
+}
+.word{
+    
+    display: flex;;
+    position: absolute;
+    right: 500px;
+}
+.letter{
+    margin: 5px;
+}
+
+.alphabet > div {
+    font-size: 18px;
+    text-align: center;
+    padding-top: 5px;
+    width: 30px;
+    height: 30px;
+    margin: 8px;
+    flex-wrap: nowrap;
+    background-color: #9FAAB5;
+    color: #798089;
+    border: 2px solid #798089;
+    border-radius: 3px;
+}
+.button:hover {
+    cursor: pointer;
+}
