@@ -12,11 +12,15 @@ const words = palavras;
 
 export default function App() {
 
+    const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
     const [word, setWord] = react.useState("");
     const [arrayWord, setArrayWord] = react.useState([]);
     const [wrongL, setWrongL] = react.useState([]);
     const [rigthL, setRigthL] = react.useState([]);
     const [allL, setAllL] = react.useState([]);
+    const [rImage, setRImage] = react.useState(forca0);
+
 
     function chooseWord() {
         if (word == "") {
@@ -32,23 +36,32 @@ export default function App() {
             }
         }
     }
+
+ 
+
     function letterClick(letter){
-        for(let i = 0;i < word.length;i++){
+       if(!allL.includes(letter))
+        { for(let i = 0;i < word.length;i++){
             if(letter == word[i]){
                 return setRigthL([...rigthL, letter]) && setAllL([...allL, letter])
                 
             }
         }
-        return setWrongL([...wrongL, letter]) && setAllL([...allL, letter])
-        
+          setWrongL([...wrongL, letter])
+           setAllL([...allL, letter]) 
+          
+            
+         
+        }
+        chooseImport()
     }
-
-    const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    
+   
 
     return (
         <>
             <div>
-                <img src={forca0}></img>
+                <img src={rImage}></img>
                 <div className="word">
                     {arrayWord.map((l) => rigthL.includes(l) ? 
                     <div className="letter">{l}</div> :
@@ -63,10 +76,49 @@ export default function App() {
             </div>
             <div className="alphabet">
                 {letters.map((l, index) =>
-                    <div data-identifier='letter' key={index} onClick={() => letterClick(l)}>
+                    <button data-identifier='letter' key={index} onClick={() => letterClick(l)}>
                         {l}
-                    </div>)}
+                    </button>)}
+            </div>
+
+            <div className="try-it">
+                    Já sei a palavra 
+                    <input></input>
+                    <button className="try">Chutar</button>
             </div>
         </>
     )
+
+
+
+
+
+
+    function chooseImport(){
+        if(wrongL.length ==0) {
+            setRImage(forca0)
+        }
+        else if(wrongL.length ==1){
+            setRImage(forca1)
+        }
+        else if(wrongL.length ==2){
+            setRImage(forca2)
+        }
+        else if(wrongL.length ==3){
+            setRImage(forca3)
+        }
+        else if(wrongL.length ==4){
+            setRImage(forca4)
+        }
+        else if(wrongL.length ==5){
+            setRImage(forca5)
+        }
+        else {
+            setRImage(forca6)
+        }
+            
+    
+                
+           
+    }
 }

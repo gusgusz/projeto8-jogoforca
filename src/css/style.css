@@ -32,7 +32,7 @@ img {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    width: 680px;
+    width: 600px;
     margin-top: 80px;
 }
 .word{
@@ -45,7 +45,7 @@ img {
     margin: 5px;
 }
 
-.alphabet > div {
+.alphabet > button {
     font-size: 18px;
     text-align: center;
     padding-top: 5px;
@@ -57,7 +57,24 @@ img {
     color: #798089;
     border: 2px solid #798089;
     border-radius: 3px;
-}
-.button:hover {
     cursor: pointer;
+}
+.try-it{
+    width: 680px;
+    margin-left: 100px;
+    margin-top: 50px;
+}
+input {
+    width: 130px;
+    height: 20px;
+    border: 2px solid gray ;
+    border-radius: 3px;
+    margin-left: 30px;
+}
+.try {
+    background-color: #E0EAF2;
+    color: #6C8599;
+    width: 60px;
+    height: 30px;
+    margin-left: 30px;
 }
