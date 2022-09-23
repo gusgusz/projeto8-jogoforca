@@ -16,57 +16,67 @@ export default function App() {
 
     const [word, setWord] = react.useState("");
     const [arrayWord, setArrayWord] = react.useState([]);
+    const [allL, setAllL] = react.useState([]);
     const [wrongL, setWrongL] = react.useState([]);
     const [rigthL, setRigthL] = react.useState([]);
-    const [allL, setAllL] = react.useState([]);
     const [rImage, setRImage] = react.useState(forca0);
+    const [resultsL, setResultsL] = react.useState("");
 
 
     function chooseWord() {
         if (word == "") {
             const randonIndex = Math.floor(Math.random() * words.length);
             setWord(words[randonIndex]);
+            renderWord(words[randonIndex])
         }
 
+    }
+
+
+    function renderWord(w) {
         let arrayb = [];
-        for (let i = 0; i < word.length; i++) {
-            arrayb.push(word[i])
-            if (i == word.length - 1) {
+        for (let i = 0; i < w.length; i++) {
+            arrayb.push(w[i])
+            if (i == w.length - 1) {
                 setArrayWord(arrayb)
             }
         }
     }
 
- 
-
-    function letterClick(letter){
-       if(!allL.includes(letter))
-        { for(let i = 0;i < word.length;i++){
-            if(letter == word[i]){
-                return setRigthL([...rigthL, letter]) && setAllL([...allL, letter])
-                
+    function letterClick(le) {
+        if(!allL.includes(le)) {
+            setAllL([...allL, le])
+            let i = 0
+            while( i  < word.length){
+                if(word[i] == le){
+                    setRigthL([le, ...rigthL])
+                    
+                }
+                i++
             }
-        }
-          setWrongL([...wrongL, letter])
-           setAllL([...allL, letter]) 
-          
             
-         
         }
-        chooseImport()
-    }
     
-   
+    }
+        
+       
+        
+    
+    // console.log(allL)
+    // console.log("letra certa", rigthL)
+    // console.log("letra errada", wrongL)
+    
+
 
     return (
         <>
             <div>
                 <img src={rImage}></img>
                 <div className="word">
-                    {arrayWord.map((l) => rigthL.includes(l) ? 
-                    <div className="letter">{l}</div> :
-                    <div className="letter">__</div>
-                )}
+                    {arrayWord.map((l,index) => rigthL.includes(l) || (resultsL == "win" ||resultsL == "lost") ?
+                        <div key={index} className={`letter ${resultsL}`}>{l}</div> :
+                        <div key={index} className={`letter ${resultsL}`}>__</div>
+                    )}
 
 
 
@@ -76,15 +86,18 @@ export default function App() {
             </div>
             <div className="alphabet">
                 {letters.map((l, index) =>
-                    <button data-identifier='letter' key={index} onClick={() => letterClick(l)}>
+                    <button className={(word == "" || allL.includes(l) ) ? "" : "blue"}
+                        data-identifier='letter'
+                        key={index}
+                        onClick={() => letterClick(l)}>
                         {l}
                     </button>)}
             </div>
 
             <div className="try-it">
-                    Já sei a palavra 
-                    <input></input>
-                    <button className="try">Chutar</button>
+                Já sei a palavra
+                <input></input>
+                <button className="try">Chutar</button>
             </div>
         </>
     )
@@ -93,32 +106,96 @@ export default function App() {
 
 
 
-
-    function chooseImport(){
-        if(wrongL.length ==0) {
-            setRImage(forca0)
+    function resultsW() {
+        if (rigthL.length == word.length) {
+            setResultsL("win")
         }
-        else if(wrongL.length ==1){
-            setRImage(forca1)
-        }
-        else if(wrongL.length ==2){
-            setRImage(forca2)
-        }
-        else if(wrongL.length ==3){
-            setRImage(forca3)
-        }
-        else if(wrongL.length ==4){
-            setRImage(forca4)
-        }
-        else if(wrongL.length ==5){
-            setRImage(forca5)
+        else if (wrongL.length == 6) {
+            setResultsL("lost")
         }
         else {
-            setRImage(forca6)
+            setResultsL("")
         }
-            
-    
-                
-           
+    }
+
+    function chooseImport(wrong) {
+        if (word != "") {
+
+            if (wrong.length == 0) {
+                setRImage(forca0)
+            }
+            else if (wrong.length == 1) {
+                setRImage(forca1)
+            }
+            else if (wrong.length == 2) {
+                setRImage(forca2)
+            }
+            else if (wrong.length == 3) {
+                setRImage(forca3)
+            }
+            else if (wrong.length == 4) {
+                setRImage(forca4)
+            }
+            else if (wrong.length == 5) {
+                setRImage(forca5)
+            }
+            else {
+                setRImage(forca6)
+            }
+        }
+
+
+
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // function letterClick(letter) {
+    //     if (word != "" && resultsL == "") {
+    //         if (!allL.includes(letter)) {
+    //             setAllL([...allL, letter])
+    //             for (let i = 0; i < word.length; i++) {
+    //                 console.log(letter, word[i])
+    //                 if (letter == word[i]) {
+    //                     console.log("entrei no if")
+    //                     const newL = [...rigthL, letter]
+    //                     setRigthL(newL)
+    //                     resultsW();
+    //                 }
+    //             }
+                
+    //                 console.log("if errado")
+    //                 setWrongL([...wrongL, letter])
+    //                 resultsW();
+    //                 chooseImport()
+                
+    //         }
+
+    //         chooseImport()
+
+    //         console.log("errado", wrongL)
+    //         console.log("certo",rigthL)
+    //         console.log("tudas as letras", allL)
+
+    //     }
+    // }

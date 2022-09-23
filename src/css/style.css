@@ -41,8 +41,20 @@ img {
     position: absolute;
     right: 500px;
 }
+.word .win{
+    color: green;
+}
+.word .lost {
+    color: red;
+}
 .letter{
     margin: 5px;
+}
+
+.alphabet > .blue {
+    background-color: #E1ECF4;
+    color: #5986AE;
+    border: 0.5px solid #5986AE;
 }
 
 .alphabet > button {
@@ -59,6 +71,7 @@ img {
     border-radius: 3px;
     cursor: pointer;
 }
+
 .try-it{
     width: 680px;
     margin-left: 100px;
