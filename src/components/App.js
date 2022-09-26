@@ -33,10 +33,21 @@ export default function App() {
             setWord(pal.toLowerCase().normalize("NFD").replace(/[^a-zA-Z\s]/g, ""));
             renderWord(pal.toLowerCase().normalize("NFD").replace(/[^a-zA-Z\s]/g, ""))
         }
-        console.log("palavra",word)
+        else {
+            setAllL([])
+            setWrongL([])
+            setRImage(forca0)
+            setResultsL("")
+            setTryit("")
+            const randonIndex = Math.floor(Math.random() * words.length);
+            const pal = words[randonIndex]
+            setWord(pal.toLowerCase().normalize("NFD").replace(/[^a-zA-Z\s]/g, ""));
+            renderWord(pal.toLowerCase().normalize("NFD").replace(/[^a-zA-Z\s]/g, ""))
+        }
+        
     }
 
-
+    console.log("palavra",word)
     function renderWord(w) {
         let arrayb = [];
         for (let i = 0; i < w.length; i++) {
@@ -79,13 +90,13 @@ export default function App() {
         
     
     function finalTry(p) {
-     
+     if(resultsL == ""){
        if(p == word){
         setResultsL("win")
        }
        else{
         setResultsL("lost")
-       }
+       }}
     }
         
        
@@ -139,8 +150,8 @@ export default function App() {
         function victory(all){
             console.log("word",arrayWord)
             console.log("todas", all)
-            if(resultsL == "")
-           { for(let i = 0; i<arrayWord.length; i++){
+            if(resultsL === "") { 
+                for(let i = 0; i<arrayWord.length; i++){
                 console.log(!all.includes(arrayWord[i]))
                 if(!all.includes(arrayWord[i])){
                     
@@ -154,7 +165,7 @@ export default function App() {
         }
 
         function losted(len){
-         if(resultsL == "") { 
+         if(resultsL =="") { 
              if(len == 6) {
 
 
