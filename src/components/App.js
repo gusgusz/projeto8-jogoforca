@@ -53,7 +53,7 @@ export default function App() {
 
   
         
-        if(!allL.includes(le)) {
+        if(!allL.includes(le) && resultsL == "") {
            setAllL(all)
             
             for(let i = 0;i < word.length;i++){
@@ -138,7 +138,8 @@ export default function App() {
         function victory(all){
             console.log("word",arrayWord)
             console.log("todas", all)
-            for(let i = 0; i<arrayWord.length; i++){
+            if(resultsL == "")
+           { for(let i = 0; i<arrayWord.length; i++){
                 console.log(!all.includes(arrayWord[i]))
                 if(!all.includes(arrayWord[i])){
                     
@@ -147,14 +148,17 @@ export default function App() {
                
             }
             setResultsL("win")
-            return true
+            return true}
          
         }
 
         function losted(len){
-            if(len == 6) {
+         if(resultsL == "") { 
+             if(len == 6) {
+
+
                 setResultsL("lost") 
-            }
+            }}
         }
 
 
