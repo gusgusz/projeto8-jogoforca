@@ -18,18 +18,22 @@ export default function App() {
     const [arrayWord, setArrayWord] = react.useState([]);
     const [allL, setAllL] = react.useState([]);
     const [wrongL, setWrongL] = react.useState([]);
-    const [rigthL, setRigthL] = react.useState([]);
     const [rImage, setRImage] = react.useState(forca0);
     const [resultsL, setResultsL] = react.useState("");
+    const [tryit, setTryit] = react.useState("");
+
+   
+
 
 
     function chooseWord() {
         if (word == "") {
             const randonIndex = Math.floor(Math.random() * words.length);
-            setWord(words[randonIndex]);
-            renderWord(words[randonIndex])
+            const pal = words[randonIndex]
+            setWord(pal.toLowerCase().normalize("NFD").replace(/[^a-zA-Z\s]/g, ""));
+            renderWord(pal.toLowerCase().normalize("NFD").replace(/[^a-zA-Z\s]/g, ""))
         }
-
+        console.log("palavra",word)
     }
 
 
@@ -44,19 +48,44 @@ export default function App() {
     }
 
     function letterClick(le) {
+        const wrArr = wrongL.length + 1;
+        const all = [...allL, le]
+
+  
+        
         if(!allL.includes(le)) {
-            setAllL([...allL, le])
-            let i = 0
-            while( i  < word.length){
+           setAllL(all)
+            
+            for(let i = 0;i < word.length;i++){
                 if(word[i] == le){
-                    setRigthL([le, ...rigthL])
+                    console.log("acertei")
+                    console.log("vitoria", victory(all))
+                    return true
                     
                 }
-                i++
+              
             }
+           
+            setWrongL([le, ...wrongL])
+            console.log("entrei no errado", wrongL)
+            chooseImport(wrArr)
+            losted(wrArr)
+            return false
             
         }
+        
+          
+ }
+        
     
+    function finalTry(p) {
+     
+       if(p == word){
+        setResultsL("win")
+       }
+       else{
+        setResultsL("lost")
+       }
     }
         
        
@@ -73,9 +102,9 @@ export default function App() {
             <div>
                 <img src={rImage}></img>
                 <div className="word">
-                    {arrayWord.map((l,index) => rigthL.includes(l) || (resultsL == "win" ||resultsL == "lost") ?
+                    {arrayWord.map((l,index) => allL.includes(l) || (resultsL == "win" ||resultsL == "lost") ?
                         <div key={index} className={`letter ${resultsL}`}>{l}</div> :
-                        <div key={index} className={`letter ${resultsL}`}>__</div>
+                        <div key={index} className="letter">__</div>
                     )}
 
 
@@ -86,7 +115,7 @@ export default function App() {
             </div>
             <div className="alphabet">
                 {letters.map((l, index) =>
-                    <button className={(word == "" || allL.includes(l) ) ? "" : "blue"}
+                    <button className={(word == "" || allL.includes(l) || resultsL == !"" ) ? "" : "blue"}
                         data-identifier='letter'
                         key={index}
                         onClick={() => letterClick(l)}>
@@ -96,47 +125,59 @@ export default function App() {
 
             <div className="try-it">
                 Já sei a palavra
-                <input></input>
-                <button className="try">Chutar</button>
+                <input 
+                placeholder="tentar" 
+                value={tryit}
+                onChange={event => setTryit(event.target.value)} />
+                <button onClick={() => finalTry(tryit)} className="try">Chutar</button>
             </div>
         </>
     )
 
 
-
-
-
-    function resultsW() {
-        if (rigthL.length == word.length) {
+        function victory(all){
+            console.log("word",arrayWord)
+            console.log("todas", all)
+            for(let i = 0; i<arrayWord.length; i++){
+                console.log(!all.includes(arrayWord[i]))
+                if(!all.includes(arrayWord[i])){
+                    
+                    return false
+                }
+               
+            }
             setResultsL("win")
+            return true
+         
         }
-        else if (wrongL.length == 6) {
-            setResultsL("lost")
-        }
-        else {
-            setResultsL("")
-        }
-    }
 
-    function chooseImport(wrong) {
+        function losted(len){
+            if(len == 6) {
+                setResultsL("lost") 
+            }
+        }
+
+
+   
+    function chooseImport(wro) {
         if (word != "") {
 
-            if (wrong.length == 0) {
+            if (wro == 0) {
                 setRImage(forca0)
             }
-            else if (wrong.length == 1) {
+            else if (wro == 1) {
                 setRImage(forca1)
             }
-            else if (wrong.length == 2) {
+            else if (wro == 2) {
                 setRImage(forca2)
             }
-            else if (wrong.length == 3) {
+            else if (wro == 3) {
                 setRImage(forca3)
             }
-            else if (wrong.length == 4) {
+            else if (wro == 4) {
                 setRImage(forca4)
             }
-            else if (wrong.length == 5) {
+            else if (wro == 5) {
                 setRImage(forca5)
             }
             else {
@@ -185,7 +226,7 @@ export default function App() {
     //             }
                 
     //                 console.log("if errado")
-    //                 setWrongL([...wrongL, letter])
+    //                 setwroL([...wrongL, letter])
     //                 resultsW();
     //                 chooseImport()
                 

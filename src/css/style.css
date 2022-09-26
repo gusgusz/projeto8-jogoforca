@@ -41,11 +41,12 @@ img {
     position: absolute;
     right: 500px;
 }
-.word .win{
-    color: green;
-}
+
 .word .lost {
     color: red;
+}
+.word .win{
+    color: green;
 }
 .letter{
     margin: 5px;
