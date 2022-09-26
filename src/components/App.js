@@ -15,7 +15,7 @@ export default function App() {
     const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
     const [word, setWord] = react.useState("");
-    const [arrayWord, setArrayWord] = react.useState([]);
+    const [arrayWord, setArrayWord] = react.useState([]) ;
     const [allL, setAllL] = react.useState([]);
     const [wrongL, setWrongL] = react.useState([]);
     const [rImage, setRImage] = react.useState(forca0);
@@ -100,8 +100,8 @@ export default function App() {
     return (
         <>
             <div>
-                <img src={rImage}></img>
-                <div className="word">
+                <img data-identifier="game-image" src={rImage}></img>
+                <div className="word" data-identifier="word">
                     {arrayWord.map((l,index) => allL.includes(l) || (resultsL == "win" ||resultsL == "lost") ?
                         <div key={index} className={`letter ${resultsL}`}>{l}</div> :
                         <div key={index} className="letter">__</div>
@@ -115,7 +115,7 @@ export default function App() {
             </div>
             <div className="alphabet">
                 {letters.map((l, index) =>
-                    <button className={(word == "" || allL.includes(l) || resultsL == !"" ) ? "" : "blue"}
+                    <button  className={(word == "" || allL.includes(l) || resultsL == !"" ) ? "" : "blue"}
                         data-identifier='letter'
                         key={index}
                         onClick={() => letterClick(l)}>
@@ -127,9 +127,10 @@ export default function App() {
                 Já sei a palavra
                 <input 
                 placeholder="tentar" 
+                data-identifier="type-guess"
                 value={tryit}
                 onChange={event => setTryit(event.target.value)} />
-                <button onClick={() => finalTry(tryit)} className="try">Chutar</button>
+                <button data-identifier="guess-button" onClick={() => finalTry(tryit)} className="try">Chutar</button>
             </div>
         </>
     )
